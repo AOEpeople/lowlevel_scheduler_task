@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<type>database</type>
+		<description>Language labels for database tables/fields belonging to extension 'lowlevel_scheduler_task'</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+            <label index="lowlevelconnect_task_updateRefindex.name">Lowlevel update refindex</label>
+            <label index="lowlevelconnect_task_updateRefindex.description">Running the lowlevel refindex process.</label>
+            <label index="lowlevelconnect_task_cleanup.name">!!!! Lowlevel cleaner - Deletes records and files.</label>
+            <label index="lowlevelconnect_task_cleanup.description">!!!! Running the lowlevel cleaner process. Keep in mind that this process will really delete records and files from your environment. Take sure that the backup of your environment is working.</label>
+            <label index="lowlevelconnect_task_syslog.name">Syslog entries</label>
+            <label index="lowlevelconnect_task_syslog.description">Sends the last 25h upcoming syslog entries to your eMail address.</label>
+		</languageKey>
+	</data>
+</T3locallang>
