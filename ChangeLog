@@ -1,4 +1,7 @@
 2009-10-28  Michael Klapper <michael.klapper@aoemedia.de>
+	* Add XML-file attachement to the sysLog report eMail
+	* Add range in hours to send sysLog entries 
+	* Add option to select sysLog entry type 
 	* Add initial
 
 --------------------

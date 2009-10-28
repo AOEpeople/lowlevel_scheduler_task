@@ -51,38 +51,53 @@ class tx_lowlevelschedulertask_task_syslog extends tx_scheduler_Task {
 	public function execute() {
 		$sucess = false;
 		if (!empty($this->email)) {
-			$subject   = 'SCHEDULER LOWLEVEL CLEANER SYSLOG TASK';
-//			$logData   = $this->getLogEntries();
-			$logString = 'Collect data ... ';
+			$subject   = $GLOBALS['TYPO3_CONF_VARS']['SYS']['sitename'] . ' - ' . 'SCHEDULER LOWLEVEL CLEANER SYSLOG TASK';
+			$logData   = $this->getLogEntries();
 
 			$mailBody =
 				$subject . chr(10)
 				. '- - - - - - - - - - - - - - - -' . chr(10)
-				. 'Sitename: ' . $GLOBALS['TYPO3_CONF_VARS']['SYS']['sitename'] . chr(10)
 				. 'tstamp: ' . date('Y-m-d H:i:s') . ' [' . time() . ']' . chr(10)
-				. 'LOG DATA' . chr(10)
-				. '- - - - - - - - - - - - - - - -' . chr(10)
-				. $logString
-				. '- - - - - - - - - - - - - - - -' . chr(10)
 				. 'End of message.' . chr(10);
 
 				// Prepare mailer and send the mail
-			$mailer = t3lib_div::makeInstance('t3lib_htmlmail');
-			$mailer->from_email = $this->email;
-			$mailer->from_name = $subject;
-			$mailer->replyto_email = $this->email;
-			$mailer->replyto_name = $subject;
-			$mailer->subject = $subject;
-			$mailer->setPlain($mailer->encodeMsg($mailBody));
-			$mailer->setRecipient($this->email);
-			$mailer->setHeaders();
-			$mailer->setContent();
-			$success = $mailer->sendtheMail();
+			$Mailer = t3lib_div::makeInstance('t3lib_htmlmail'); /* @var $Mailer t3lib_htmlmail */
+			$Mailer->theParts['attach'][] = $this->buildStructForXMLAttachement($logData);
+			$Mailer->from_email = $this->email;
+			$Mailer->from_name = $subject;
+			$Mailer->replyto_email = $this->email;
+			$Mailer->replyto_name = $subject;
+			$Mailer->subject = $subject;
+			$Mailer->setPlain($Mailer->encodeMsg($mailBody));
+			$Mailer->setRecipient($this->email);
+			$Mailer->setHeaders();
+			$Mailer->setContent();
+
+			$success = $Mailer->sendtheMail();
 		} else {
 				// No email defined, just log the task
-			t3lib_div::devLog('[tx_scheduler_TestTask]: No email address given', 'scheduler', 2);
+			t3lib_div::devLog('[tx_lowlevelschedulertask_task_syslog]: No email address given', 'scheduler', 2);
 		}
 		return $sucess;
+	}
+
+	/**
+	 *
+	 * @param array $logDataStruct
+	 *
+	 * @access protected
+	 * @return array
+	 *
+	 * @author Michael Klapper <michael.klapper@aoemedia.de>
+	 */
+	protected function buildStructForXMLAttachement(array $logDataStruct = array()) {
+		$attachementStruct = array (
+			'content_type' => 'text/xml',
+			'content'      => t3lib_div::array2xml($logDataStruct),
+			'filename'     => 'lowlevel-syslog_' . date('Y-m-d_H-i-s') . '.xml',
+		);
+
+		return $attachementStruct;
 	}
 
 	/**
@@ -110,12 +125,12 @@ class tx_lowlevelschedulertask_task_syslog extends tx_scheduler_Task {
 		$rows = $TYPO3_DB->exec_SELECTgetRows(
 			'*',
 			'sys_log',
-			'tstamp>' . ($GLOBALS['EXEC_TIME'] - 25 * 3600) . ' AND error = 1'
+			'tstamp>' . ($GLOBALS['EXEC_TIME'] - $this->hours * 3600) . ' AND error = ' . $this->logLevel
 		);
 
-		foreach($rows as $r)	{
+		foreach ($rows as $r) {
 			$l = unserialize($r['log_data']);
-			$explained = '#'.$r['uid'].' '.t3lib_BEfunc::datetime($r['tstamp']).' USER['.$r['userid'].']: '.sprintf($r['details'],$l[0],$l[1],$l[2],$l[3],$l[4],$l[5]);
+			$explained = '#' . $r['uid'] . ' ' . t3lib_BEfunc::datetime($r['tstamp']) . ' USER[' . $r['userid'] . ']: '.sprintf($r['details'],$l[0],$l[1],$l[2],$l[3],$l[4],$l[5]);
 			$resultArray['listing'][$r['uid']] = $explained;
 			$resultArray['allDetails'][$r['uid']] = array($explained,t3lib_div::arrayToLogString($r,'uid,userid,action,recuid,tablename,recpid,error,tstamp,type,details_nr,IP,event_pid,NEWid,workspace'));
 		}

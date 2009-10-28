@@ -81,6 +81,18 @@ class tx_lowlevelschedulertask_task_syslog_AdditionalFieldProvider implements tx
 			}
 		}
 
+			// Initialize extra field value
+		if (empty($taskInfo['hours'])) {
+			if ($schedulerModule->CMD == 'add') {
+				$taskInfo['hours'] = $GLOBALS['BE_USER']->user['hours'];
+
+			} elseif ($schedulerModule->CMD == 'edit') {
+				$taskInfo['hours'] = $task->hours;
+			} else {
+				$taskInfo['hours'] = '';
+			}
+		}
+
 			// Write the code for the field
 		$fieldID = 'task_email';
 		$fieldCode = '<input type="text" name="tx_scheduler[email]" id="' . $fieldID . '" value="' . $taskInfo['email'] . '" size="30" />';
@@ -89,6 +101,15 @@ class tx_lowlevelschedulertask_task_syslog_AdditionalFieldProvider implements tx
 			'code'     => $fieldCode,
 			'label'    => 'LLL:EXT:lowlevel_scheduler_task/task/locallang.xml:syslog.email'
 		);
+
+			// Write the code for the field
+		$fieldID = 'task_hours';
+		$fieldCode = '<input type="text" name="tx_scheduler[hours]" id="' . $fieldID . '" value="' . $taskInfo['hours'] . '" size="10" />';
+		$additionalFields[$fieldID] = array(
+			'code'     => $fieldCode,
+			'label'    => 'LLL:EXT:lowlevel_scheduler_task/task/locallang.xml:syslog.hours'
+		);
+
 
 		$fieldID = 'task_logLevel';
 		$fieldCode = '<select name="tx_scheduler[logLevel]" id="' . $fieldID . '" value="' . $taskInfo['logLevel'] . '">'
@@ -112,12 +133,19 @@ class tx_lowlevelschedulertask_task_syslog_AdditionalFieldProvider implements tx
 	 */
 	public function validateAdditionalFields(array &$submittedData, tx_scheduler_Module $schedulerModule) {
 		$submittedData['email'] = trim($submittedData['email']);
+		$result = false;
 
 		if (! t3lib_div::validEmail($submittedData['email'])) {
-			$schedulerModule->addMessage($GLOBALS['LANG']->sL('LLL:EXT:scheduler/mod1/locallang.xml:msg.noEmail'), t3lib_FlashMessage::ERROR);
-			$result = false;
+			$schedulerModule->addMessage($GLOBALS['LANG']->sL('LLL:EXT:lowlevel_scheduler_task/task/locallang.xml:msg.noEmail'), t3lib_FlashMessage::ERROR);
 		} else {
 			$result = true;
+		}
+
+		if (t3lib_div::intval_positive($submittedData['hours']) === 0) {
+			$schedulerModule->addMessage($GLOBALS['LANG']->sL('LLL:EXT:lowlevel_scheduler_task/task/locallang.xml:msg.noHours'), t3lib_FlashMessage::ERROR);
+			$result = false;
+		} else {
+			$result = ($result === false) ? false : true;
 		}
 
 		return $result;
@@ -133,5 +161,6 @@ class tx_lowlevelschedulertask_task_syslog_AdditionalFieldProvider implements tx
 	public function saveAdditionalFields(array $submittedData, tx_scheduler_Task $task) {
 		$task->email    = $submittedData['email'];
 		$task->logLevel = $submittedData['logLevel'];
+		$task->hours    = $submittedData['hours'];
 	}
 }
