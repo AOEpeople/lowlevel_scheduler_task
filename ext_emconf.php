@@ -31,6 +31,7 @@ $EM_CONF[$_EXTKEY] = array(
 	'author_email' => 'michael.klapper@aoemedia.de',
 	'author_company' => 'AOE media GmbH',
 	'CGLcompliance' => '',
+	'doNotLoadInFE' => 1,
 	'CGLcompliance_note' => '',
 	'constraints' => array (
 		'depends' => array (
