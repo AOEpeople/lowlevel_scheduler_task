@@ -53,27 +53,26 @@ class tx_lowlevelschedulertask_task_cleanup extends tx_scheduler_Task {
 	public function execute() {
 		global $TYPO3_CONF_VARS;
 		$cleanerKeys = array (
-			'orphan_records'          => array('-r', '--refindex', 'update', '--AUTOFIX', '--YES'),
-			'versions'                => array('-r', '--refindex', 'ignore', '--AUTOFIX', '--YES'),
-			'tx_templavoila_unusedce' => array('-r', '--refindex', 'update', '--AUTOFIX', '--YES'),
-			'tx_templavoila_unusedce' => array('-r', '--refindex', 'update', '--AUTOFIX', '--YES'),
-			'missing_files'           => array('-r', '--refindex', 'ignore', '--AUTOFIX', '--YES'),
-			'double_files'            => array('-r', '--refindex', 'ignore', '--AUTOFIX', '--YES'),
-			'lost_files'              => array('-r', '--refindex', 'ignore', '--AUTOFIX', '--YES')
+			'orphan_records'          => array('-r', '-ss',  '--refindex', 'update', '--AUTOFIX', '--YES'),
+			'versions'                => array('-r', '-ss', '--refindex', 'ignore', '--AUTOFIX', '--YES'),
+			'tx_templavoila_unusedce' => array('-r', '-ss', '--refindex', 'update', '--AUTOFIX', '--YES'),
+			'tx_templavoila_unusedce' => array('-r', '-ss', '--refindex', 'update', '--AUTOFIX', '--YES'),
+			'missing_files'           => array('-r', '-ss', '--refindex', 'ignore', '--AUTOFIX', '--YES'),
+			'double_files'            => array('-r', '-ss', '--refindex', 'ignore', '--AUTOFIX', '--YES'),
+			'lost_files'              => array('-r', '-ss', '--refindex', 'ignore', '--AUTOFIX', '--YES')
 		);
-		$LowlevelCleanerCore = t3lib_div::makeInstance('tx_lowlevel_cleaner_core'); /* @var $LowlevelCleanerCore tx_lowlevel_cleaner_core */
 
-		ob_start();
 		foreach ($cleanerKeys as $cleanerKey => $cleanerParams) {
 
 			if (!array_key_exists($cleanerKey, $TYPO3_CONF_VARS['EXTCONF']['lowlevel']['cleanerModules']))
 				continue;
-
-			array_unshift($cleanerParams, $_SERVER['argv'][0], $cleanerKey);
-			$LowlevelCleanerCore->cli_main($cleanerParams);
+			
+			array_unshift($cleanerParams, PATH_typo3 . 'cli_dispatch.phpsh', $cleanerKey);
+			$_SERVER['argv'] = $cleanerParams; 
+			
+			$LowlevelCleanerCore = t3lib_div::makeInstance('tx_lowlevel_cleaner_core'); /* @var $LowlevelCleanerCore tx_lowlevel_cleaner_core */
+			$LowlevelCleanerCore->cli_main(array());
 		}
-		ob_end_clean();
-
 		return true;
 	}
 }
