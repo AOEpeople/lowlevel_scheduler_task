@@ -46,7 +46,7 @@ class tx_lowlevelschedulertask_task_updateRefindex extends tx_scheduler_Task {
 	 * Should return true on successful execution, false on error.
 	 *
 	 * @access public
-	 * @return boolean	Returns true on successful execution, false on error
+	 * @return boolean	Returns true on successful execution
 	 *
 	 * @author Michael Klapper <michael.klapper@aoemedia.de>
 	 */
