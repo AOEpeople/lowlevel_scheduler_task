@@ -53,7 +53,7 @@ class tx_lowlevelschedulertask_task_cachecleaner extends tx_scheduler_Task {
 	public function execute() {
 		global $TYPO3_CONF_VARS;
 		$cleanerKeys = array (
-			'tx_cachecleaner_cache' => array('-r', '-ss',  '--YES'),
+			'tx_cachecleaner_cache' => array('-r', '-ss', '--AUTOFIX', '--YES'),
 		);
 
 		foreach ($cleanerKeys as $cleanerKey => $cleanerParams) {
