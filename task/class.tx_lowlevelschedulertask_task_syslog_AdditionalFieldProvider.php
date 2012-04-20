@@ -95,7 +95,7 @@ class tx_lowlevelschedulertask_task_syslog_AdditionalFieldProvider implements tx
 
 			// Write the code for the field
 		$fieldID = 'task_email';
-		$fieldCode = '<input type="text" name="tx_scheduler[email]" id="' . $fieldID . '" value="' . $taskInfo['email'] . '" size="30" />';
+		$fieldCode = '<input type="text" name="tx_scheduler[email]" id="' . $fieldID . '" value="' . htmlentities($taskInfo['email']) . '" size="30" />';
 		$additionalFields = array();
 		$additionalFields[$fieldID] = array(
 			'code'     => $fieldCode,
@@ -104,7 +104,7 @@ class tx_lowlevelschedulertask_task_syslog_AdditionalFieldProvider implements tx
 
 			// Write the code for the field
 		$fieldID = 'task_hours';
-		$fieldCode = '<input type="text" name="tx_scheduler[hours]" id="' . $fieldID . '" value="' . $taskInfo['hours'] . '" size="10" />';
+		$fieldCode = '<input type="text" name="tx_scheduler[hours]" id="' . $fieldID . '" value="' . htmlentities($taskInfo['hours']) . '" size="10" />';
 		$additionalFields[$fieldID] = array(
 			'code'     => $fieldCode,
 			'label'    => 'LLL:EXT:lowlevel_scheduler_task/task/locallang.xml:syslog.hours'
@@ -112,7 +112,7 @@ class tx_lowlevelschedulertask_task_syslog_AdditionalFieldProvider implements tx
 
 
 		$fieldID = 'task_logLevel';
-		$fieldCode = '<select name="tx_scheduler[logLevel]" id="' . $fieldID . '" value="' . $taskInfo['logLevel'] . '">'
+		$fieldCode = '<select name="tx_scheduler[logLevel]" id="' . $fieldID . '" value="' . htmlentities($taskInfo['logLevel']) . '">'
 		           . '<option value="1">Error</option>'
 		           . '<option value="0">All</option>'
 		           . '</select>';
