@@ -6,11 +6,13 @@
 	</meta>
 	<data type="array">
 		<languageKey index="default" type="array">
+			<label index="realurl.urlEncodeCacheExpirationDays">URL Encode Cache Expiration Days</label>
             <label index="syslog.email">E-Mail</label>
             <label index="syslog.logLevel">Log level to view</label>
             <label index="syslog.hours">Showing entries from the last x hour</label>
             <label index="msg.noEmail">Please enter an email address</label>
             <label index="msg.noHours">Please enter an amount of hours</label>
+			<label index="msg.invalidUrlEncodeCacheExpirationDays">Please enter an amount of days</label>
 		</languageKey>
 	</data>
 </T3locallang>

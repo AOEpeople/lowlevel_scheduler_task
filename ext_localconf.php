@@ -29,3 +29,12 @@ if (t3lib_extMgm::isLoaded('cachecleaner')) {
 		'additionalFields' => 'tx_lowlevelschedulertask_task_cachecleaner_AdditionalFieldProvider'
 	);
 }
+
+if (t3lib_extMgm::isLoaded('realurl')) {
+	$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['tx_lowlevelschedulertask_task_realurl'] = array(
+		'extension'        => $_EXTKEY,
+		'title'            => 'LLL:EXT:' . $_EXTKEY . '/locallang_db.xml:lowlevelconnect_task_realurl.name',
+		'description'      => 'LLL:EXT:' . $_EXTKEY . '/locallang_db.xml:lowlevelconnect_task_realurl.description',
+		'additionalFields' => 'tx_lowlevelschedulertask_task_realurl_AdditionalFieldProvider'
+	);
+}
