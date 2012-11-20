@@ -38,6 +38,11 @@
 class tx_lowlevelschedulertask_task_realurl extends tx_scheduler_Task {
 
 	/**
+	 * @var string return message
+	 */
+	protected $returnMessage;
+
+	/**
 	 * This is the main method that is called when a task is executed
 	 * It MUST be implemented by all classes inheriting from this one
 	 * Note that there is no error handling, errors and failures are expected
@@ -52,6 +57,11 @@ class tx_lowlevelschedulertask_task_realurl extends tx_scheduler_Task {
 	public function execute() {
 
 		$this->clearUrlEncodeCache();
+
+		if ($this->returnMessage && TYPO3_MODE === 'BE') {
+			$flashMessage = t3lib_div::makeInstance('t3lib_FlashMessage', $this->returnMessage, '', t3lib_FlashMessage::OK);
+			t3lib_FlashMessageQueue::addMessage($flashMessage);
+		}
 
 		return true;
 	}
@@ -76,6 +86,18 @@ class tx_lowlevelschedulertask_task_realurl extends tx_scheduler_Task {
 		$expireTime = time() - $expirationPeriod;
 
 		$TYPO3_DB->exec_DELETEquery('tx_realurl_urlencodecache', 'tstamp < ' . $expireTime);
+
+		$this->returnMessage = sprintf('Deleted %s rows from table tx_realurl_urlencodecache', $TYPO3_DB->sql_affected_rows());
 	}
 
+	/**
+	 * Get return message
+	 * This will be read from EXT:scheduler_timeline
+	 *
+	 * @access public
+	 * @return string
+	 */
+	public function getReturnMessage() {
+		return $this->returnMessage;
+	}
 }
