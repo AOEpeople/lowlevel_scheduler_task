@@ -6,16 +6,18 @@
 	</meta>
 	<data type="array">
 		<languageKey index="default" type="array">
-            <label index="lowlevelconnect_task_updateRefindex.name">Lowlevel update refindex</label>
-            <label index="lowlevelconnect_task_updateRefindex.description">Running the lowlevel refindex process.</label>
-            <label index="lowlevelconnect_task_cleanup.name">!!!! Lowlevel cleaner - Deletes records and files.</label>
-            <label index="lowlevelconnect_task_cleanup.description">!!!! Running the lowlevel cleaner process. Keep in mind that this process will really delete records and files from your environment. Take sure that the backup of your environment is working.</label>
-            <label index="lowlevelconnect_task_syslog.name">Syslog entries</label>
-            <label index="lowlevelconnect_task_syslog.description">Sends the last 25h upcoming syslog entries to your eMail address.</label>
-            <label index="lowlevelconnect_task_cachecleaner.name">Cachecleaner</label>
-	    	<label index="lowlevelconnect_task_cachecleaner.description">Cleanup some configured tables</label>
+			<label index="lowlevelconnect_task_updateRefindex.name">Lowlevel update refindex</label>
+			<label index="lowlevelconnect_task_updateRefindex.description">Running the lowlevel refindex process.</label>
+			<label index="lowlevelconnect_task_cleanup.name">!!!! Lowlevel cleaner - Deletes records and files.</label>
+			<label index="lowlevelconnect_task_cleanup.description">!!!! Running the lowlevel cleaner process. Keep in mind that this process will really delete records and files from your environment. Take sure that the backup of your environment is working.</label>
+			<label index="lowlevelconnect_task_syslog.name">Syslog entries</label>
+			<label index="lowlevelconnect_task_syslog.description">Sends the last 25h upcoming syslog entries to your eMail address.</label>
+			<label index="lowlevelconnect_task_cachecleaner.name">Cachecleaner</label>
+			<label index="lowlevelconnect_task_cachecleaner.description">Cleanup some configured tables</label>
 			<label index="lowlevelconnect_task_realurl.name">RealURL Cleaner</label>
 			<label index="lowlevelconnect_task_realurl.description">Removes expired records from tx_realurl_urlencodecache</label>
+			<label index="lowlevelschedulertask_task_systemcleaner.name">System Cleaner</label>
+			<label index="lowlevelschedulertask_task_systemcleaner.description">Triggers low-level cleanup scripts to remove expired, deleted and orphan database records and files.</label>
 		</languageKey>
 	</data>
 </T3locallang>

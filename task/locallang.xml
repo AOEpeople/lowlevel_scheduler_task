@@ -13,6 +13,9 @@
             <label index="msg.noEmail">Please enter an email address</label>
             <label index="msg.noHours">Please enter an amount of hours</label>
 			<label index="msg.invalidUrlEncodeCacheExpirationDays">Please enter an amount of days</label>
+			<label index="scheduler.task.systemcleaner.additionalfields.toolKey">Tool Key:</label>
+			<label index="scheduler.task.systemcleaner.additionalfields.toolOptions">Options:</label>
+			<label index="scheduler.task.systemcleaner.additionalfields.successor">Execute Next:</label>
 		</languageKey>
 	</data>
 </T3locallang>

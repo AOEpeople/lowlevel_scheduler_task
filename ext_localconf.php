@@ -28,6 +28,15 @@ if (t3lib_extMgm::isLoaded('cachecleaner')) {
 		'description'      => 'LLL:EXT:' . $_EXTKEY . '/locallang_db.xml:lowlevelconnect_task_cachecleaner.description',
 		'additionalFields' => 'tx_lowlevelschedulertask_task_cachecleaner_AdditionalFieldProvider'
 	);
+
+	if (t3lib_extMgm::isLoaded('aoe_tools')) {
+		$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['tx_lowlevelschedulertask_task_systemcleaner'] = array(
+			'extension'        => $_EXTKEY,
+			'title'            => 'LLL:EXT:' . $_EXTKEY . '/locallang_db.xml:lowlevelschedulertask_task_systemcleaner.name',
+			'description'      => 'LLL:EXT:' . $_EXTKEY . '/locallang_db.xml:lowlevelschedulertask_task_systemcleaner.description',
+			'additionalFields' => 'tx_lowlevelschedulertask_task_systemcleaner_AdditionalFieldProvider'
+		);
+	}
 }
 
 if (t3lib_extMgm::isLoaded('realurl')) {

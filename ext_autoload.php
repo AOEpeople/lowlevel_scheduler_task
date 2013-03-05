@@ -14,5 +14,8 @@ return array(
 	'tx_lowlevelschedulertask_task_syslog_additionalfieldprovider' => $extensionPath . 'task/class.tx_lowlevelschedulertask_task_syslog_AdditionalFieldProvider.php',
 	'tx_lowlevelschedulertask_task_updaterefindex' => $extensionPath . 'task/class.tx_lowlevelschedulertask_task_updateRefindex.php',
 	'tx_lowlevelschedulertask_task_updaterefindex_additionalfieldprovider' => $extensionPath . 'task/class.tx_lowlevelschedulertask_task_updateRefindex_AdditionalFieldProvider.php',
+	'tx_lowlevelschedulertask_task_systemcleaner' => $extensionPath . 'task/class.tx_lowlevelschedulertask_task_systemcleaner.php',
+	'tx_lowlevelschedulertask_task_systemcleaner_additionalfieldprovider' => $extensionPath . 'task/class.tx_lowlevelschedulertask_task_systemcleaner_AdditionalFieldProvider.php',
+	'tx_lowlevel_cleaner_core' => t3lib_extMgm::extPath('lowlevel') . 'class.tx_lowlevel_cleaner_core.php',
 );
 ?>
