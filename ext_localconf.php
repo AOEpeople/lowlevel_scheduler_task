@@ -1,5 +1,10 @@
 <?php
-global $_EXTKEY;
+if(!isset($_EXTKEY)) {
+	$_EXTKEY = 'lowlevel_scheduler_task';
+	$extkeyWasMocked = TRUE;
+} else {
+	$extkeyWasMocked = FALSE;
+}
 
 $GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['scheduler']['tasks']['tx_lowlevelschedulertask_task_updateRefindex'] = array(
 	'extension'        => $_EXTKEY,
@@ -47,3 +52,8 @@ if (t3lib_extMgm::isLoaded('realurl')) {
 		'additionalFields' => 'tx_lowlevelschedulertask_task_realurl_AdditionalFieldProvider'
 	);
 }
+
+if($extkeyWasMocked) {
+	unset($_EXTKEY);
+}
+
