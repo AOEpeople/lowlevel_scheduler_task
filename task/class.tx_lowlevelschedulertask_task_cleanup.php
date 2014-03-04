@@ -69,7 +69,7 @@ class tx_lowlevelschedulertask_task_cleanup extends tx_scheduler_Task {
 			$_SERVER['argv'] = $cleanerParams; 
 			
 			$LowlevelCleanerCore = t3lib_div::makeInstance('tx_lowlevel_cleaner_core'); /* @var $LowlevelCleanerCore tx_lowlevel_cleaner_core */
-			$LowlevelCleanerCore->cli_main(array());
+			$LowlevelCleanerCore->cli_main($cleanerParams);
 		}
 		return true;
 	}
