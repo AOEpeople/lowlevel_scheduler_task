@@ -60,22 +60,22 @@ class tx_lowlevelschedulertask_task_cachecleaner_AdditionalFieldProvider impleme
 	/**
 	 * Validates the additional fields' values
 	 *
-	 * @param	array					An array containing the data submitted by the add/edit task form
-	 * @param	tx_scheduler_Module		Reference to the scheduler backend module
-	 * @return	boolean					True if validation was ok (or selected class is not relevant), false otherwise
+	 * @param array An array containing the data submitted by the add/edit task form
+	 * @param \TYPO3\CMS\Scheduler\Controller\SchedulerModuleController Reference to the scheduler backend module
+	 * @return boolean True if validation was ok (or selected class is not relevant), false otherwise
 	 */
-	public function validateAdditionalFields(array &$submittedData, tx_scheduler_Module $schedulerModule) {
+	public function validateAdditionalFields(array &$submittedData, \TYPO3\CMS\Scheduler\Controller\SchedulerModuleController $schedulerModule) {
 		return true;
 	}
 
 	/**
 	 * Takes care of saving the additional fields' values in the task's object
 	 *
-	 * @param	array					An array containing the data submitted by the add/edit task form
-	 * @param	tx_scheduler_Module		Reference to the scheduler backend module
-	 * @return	void
+	 * @param array An array containing the data submitted by the add/edit task form
+	 * @param \TYPO3\CMS\Scheduler\Task\AbstractTask Reference to the scheduler backend module
+	 * @return void
 	 */
-	public function saveAdditionalFields(array $submittedData, tx_scheduler_Task $task) {
+	public function saveAdditionalFields(array $submittedData, \TYPO3\CMS\Scheduler\Task\AbstractTask $task) {
 		return null;
 	}
 }
