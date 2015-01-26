@@ -42,16 +42,16 @@ class tx_lowlevelschedulertask_task_cachecleaner_AdditionalFieldProvider impleme
 	 * This method is used to define new fields for adding or editing a task
 	 * In this case, it adds an email field
 	 *
-	 * @param	array $taskInfo: reference to the array containing the info used in the add/edit form
-	 * @param	object $task: when editing, reference to the current task object. Null when adding.
-	 * @param	\TYPO3\CMS\Scheduler\Controller\SchedulerModuleController $parentObject: reference to the calling object (Scheduler's BE module)
-	 * @return	array	Array containg all the information pertaining to the additional fields
-	 *					The array is multidimensional, keyed to the task class name and each field's id
-	 *					For each field it provides an associative sub-array with the following:
-	 *					['code']		=> The HTML code for the field
-	 *					['label']		=> The label of the field (possibly localized)
-	 *					['cshKey']		=> The CSH key for the field
-	 *					['cshLabel']	=> The code of the CSH label
+	 * @param array $taskInfo: reference to the array containing the info used in the add/edit form
+	 * @param \TYPO3\CMS\Scheduler\Task\AbstractTask $task: when editing, reference to the current task object. Null when adding.
+	 * @param \TYPO3\CMS\Scheduler\Controller\SchedulerModuleController $parentObject: reference to the calling object (Scheduler's BE module)
+	 * @return array Array containg all the information pertaining to the additional fields
+	 *				 The array is multidimensional, keyed to the task class name and each field's id
+	 *				 For each field it provides an associative sub-array with the following:
+	 *				 ['code']		=> The HTML code for the field
+	 *				 ['label']		=> The label of the field (possibly localized)
+	 *				 ['cshKey']		=> The CSH key for the field
+	 *				 ['cshLabel']	=> The code of the CSH label
 	 */
 	public function getAdditionalFields(array &$taskInfo, $task, \TYPO3\CMS\Scheduler\Controller\SchedulerModuleController $schedulerModule) {
 		return array();
