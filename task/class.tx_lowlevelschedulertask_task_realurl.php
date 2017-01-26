@@ -2,7 +2,7 @@
 /***************************************************************
  *  Copyright notice
  *
- *  (c) 2009 AOE media (dev@aoemedia.de)
+ *  (c) 2017 AOE GmbH (dev@aoe.com)
  *  All rights reserved
  *
  *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -26,8 +26,8 @@
 /**
  * {@inheritdoc}
  *
- * @author Max Beer <max.beer@aoemedia.de>
- * @copyright Copyright (c) 2009, AOE media GmbH <dev@aoemedia.de>
+ * @author Max Beer <max.beer@aoe.com>
+ * @copyright Copyright (c) 2017, AOE GmbH <dev@aoe.com>
  * @version $Id$
  * @date $Date$
  * @since 07.11.2012 - 16:11:44
@@ -57,6 +57,7 @@ class tx_lowlevelschedulertask_task_realurl extends tx_scheduler_Task {
 	public function execute() {
 
 		$this->clearUrlEncodeCache();
+        $this->clearUrlDecodeCache();
 
 		if ($this->returnMessage && TYPO3_MODE === 'BE') {
 			$flashMessage = t3lib_div::makeInstance('t3lib_FlashMessage', $this->returnMessage, '', t3lib_FlashMessage::OK);
@@ -89,6 +90,30 @@ class tx_lowlevelschedulertask_task_realurl extends tx_scheduler_Task {
 
 		$this->returnMessage = sprintf('Deleted %s rows from table tx_realurl_urlencodecache', $TYPO3_DB->sql_affected_rows());
 	}
+    
+    /**
+     * Clears expired records in tx_realurl_urldecodecache
+     *
+     * @access protected
+     *
+     * @author Max beer <max.beer@aoe.com>
+     */
+    protected function clearUrlDecodeCache() {
+        global $TYPO3_DB; /* @var $TYPO3_DB t3lib_db */
+
+        if ($this->urlEncodeCacheExpirationDays > 0) {
+            $expirationDays = (int)$this->urlEncodeCacheExpirationDays;
+        } else {
+            $expirationDays = 2;
+        }
+
+        $expirationPeriod = $expirationDays * 24 * 3600;
+        $expireTime = time() - $expirationPeriod;
+
+        $TYPO3_DB->exec_DELETEquery('tx_realurl_urldecodecache', 'tstamp < ' . $expireTime);
+
+        $this->returnMessage = sprintf('Deleted %s rows from table tx_realurl_urldecodecache', $TYPO3_DB->sql_affected_rows());
+    }
 
 	/**
 	 * Get return message
